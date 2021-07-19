@@ -18,12 +18,8 @@ class CacheHelper {
     return await sharedPreferences.setDouble(key, value);
   }
 
-  static String getStringData({@required String key}) {
-    return sharedPreferences.getString(key);
-  }
-
-  static bool getBoolData({@required String key}) {
-    return sharedPreferences.getBool(key);
+  static dynamic getData({@required String key}) {
+    return sharedPreferences.get(key);
   }
 
   static Future<bool> removeData({@required String key,}) async {

@@ -68,7 +68,7 @@ class ShopCubit extends Cubit<ShopStates> {
   ChangeFavoritesModel changeFavoritesModel;
 
   void changeFavorites(int productID) {
-    DioHelper.postData(url: FAVORITES, data: {'product_id' : productID},token: null)
+    DioHelper.postData(url: FAVORITES, data: {'product_id' : productID},token: token)
         .then((value) {
           changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
           print(changeFavoritesModel.message);

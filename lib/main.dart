@@ -20,8 +20,8 @@ void main() async {
 
   Widget widget;
 
-  bool onBoarding = CacheHelper.getBoolData(key: 'onBoarding');
-  token = CacheHelper.getStringData(key: 'token');
+  bool onBoarding = CacheHelper.getData(key: 'onBoarding');
+  token = CacheHelper.getData(key: 'token');
   print(token);
 
   if(onBoarding != null){
