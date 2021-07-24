@@ -1,10 +1,10 @@
 class ChangeFavoritesModel{
 
-  bool statues;
+  bool status;
   String message;
 
   ChangeFavoritesModel.fromJson(Map<String,dynamic> json){
-    statues = json['statues'];
+    status = json['status'];
     message = json['message'];
   }
 }

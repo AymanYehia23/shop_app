@@ -4,14 +4,19 @@ import 'package:shop_app/layout/cubit/cubit.dart';
 import 'package:shop_app/layout/cubit/states.dart';
 import 'package:shop_app/modules/search/search_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
-import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 class ShopLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ShopCubit cubit = ShopCubit.get(context);
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (BuildContext context, state) {},
+      listener: (BuildContext context, state) {
+        if(state is ShopSuccessChangeFavoritesState){
+          if(!state.model.status){
+            showToast(message: state.model.message,backgroundColor: Colors.red);
+          }
+        }
+      },
       builder: (BuildContext context, state) {
         return Scaffold(
             appBar: AppBar(

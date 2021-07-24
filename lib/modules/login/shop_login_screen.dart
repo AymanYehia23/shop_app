@@ -22,8 +22,9 @@ class ShopLoginScreen extends StatelessWidget {
           if (state is ShopLoginSuccessState) {
             if (state.shopLoginModel.status) {
               CacheHelper.saveData(
-                      key: 'token', value: state.shopLoginModel.data.token.toString())
-                  .then((value) {
+                key: 'token',
+                value: state.shopLoginModel.data.token,
+              ).then((value) {
                 navigateToAndReplacement(
                   context,
                   ShopLayout(),

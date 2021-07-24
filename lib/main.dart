@@ -24,24 +24,30 @@ void main() async {
   token = CacheHelper.getData(key: 'token');
   print(token);
 
-  if(onBoarding != null){
-    if(token != null){
-      widget = ShopLayout();
-    }
+  if(onBoarding != null)
+  {
+    if(token != null) widget = ShopLayout();
     else widget = ShopLoginScreen();
-  }else widget = OnBoardingScreen();
+  } else
+  {
+    widget = OnBoardingScreen();
+  }
 
-  runApp(MyApp(startWidget: widget,));
+  runApp(MyApp(
+    startWidget: widget,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  final Widget startWidget ;
+  final Widget startWidget;
 
   MyApp({this.startWidget});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ShopCubit()..getHomeData()..getCategoriesData(),
+      create: (BuildContext context) => ShopCubit()
+        ..getHomeData()
+        ..getCategoriesData()..getFavoritesData(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
