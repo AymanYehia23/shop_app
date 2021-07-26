@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/cubit/cubit.dart';
 import 'package:shop_app/layout/shop_layout.dart';
 import 'package:shop_app/modules/login/shop_login_screen.dart';
 import 'package:shop_app/modules/onboarding/onboarding_screen.dart';
@@ -24,12 +23,12 @@ void main() async {
   token = CacheHelper.getData(key: 'token');
   print(token);
 
-  if(onBoarding != null)
-  {
-    if(token != null) widget = ShopLayout();
-    else widget = ShopLoginScreen();
-  } else
-  {
+  if (onBoarding != null) {
+    if (token != null)
+      widget = ShopLayout();
+    else
+      widget = ShopLoginScreen();
+  } else {
     widget = OnBoardingScreen();
   }
 
@@ -44,17 +43,12 @@ class MyApp extends StatelessWidget {
   MyApp({this.startWidget});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => ShopCubit()
-        ..getHomeData()
-        ..getCategoriesData()..getFavoritesData(),
-      child: MaterialApp(
+      return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.light,
         home: this.startWidget,
-      ),
-    );
+      );
   }
 }

@@ -6,6 +6,7 @@ import 'package:shop_app/modules/login/cubit/cubit.dart';
 import 'package:shop_app/modules/login/cubit/states.dart';
 import 'package:shop_app/modules/register/shop_register_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
+import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 class ShopLoginScreen extends StatelessWidget {
@@ -29,6 +30,7 @@ class ShopLoginScreen extends StatelessWidget {
                   context,
                   ShopLayout(),
                 );
+                token = state.shopLoginModel.data.token;
               });
             } else {
               showToast(

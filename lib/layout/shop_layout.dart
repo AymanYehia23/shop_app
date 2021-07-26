@@ -8,58 +8,67 @@ import 'package:shop_app/shared/components/components.dart';
 class ShopLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ShopCubit cubit = ShopCubit.get(context);
-    return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (BuildContext context, state) {
-        if(state is ShopSuccessChangeFavoritesState){
-          if(!state.model.status){
-            showToast(message: state.model.message,backgroundColor: Colors.red);
+    return BlocProvider(
+      create: (BuildContext context) => ShopCubit()
+        ..getHomeData()
+        ..getCategoriesData()
+        ..getFavoritesData()
+        ..getUserData(),
+      child: BlocConsumer<ShopCubit, ShopStates>(
+        listener: (BuildContext context, state) {
+          if (state is ShopSuccessChangeFavoritesState) {
+            if (!state.model.status) {
+              showToast(
+                  message: state.model.message, backgroundColor: Colors.red);
+            }
           }
-        }
-      },
-      builder: (BuildContext context, state) {
-        return Scaffold(
+        },
+        builder: (BuildContext context, state) {
+          return Scaffold(
             appBar: AppBar(
               title: Text(
                 'Salla',
-                style: Theme.of(context).textTheme.headline4.copyWith(color: Colors.black),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: Colors.black),
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: (){
-                    navigateTo(context, SearchScreen());
-                  }
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      navigateTo(context, SearchScreen());
+                    }),
+              ],
+            ),
+            body: ShopCubit.get(context).bottomNavScreens[ShopCubit.get(context).currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (int index) {
+                ShopCubit.get(context).changeBottomNavIndex(index);
+              },
+              currentIndex: ShopCubit.get(context).currentIndex,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.apps_outlined),
+                  label: 'Categories',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_outlined),
+                  label: 'Favorites',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_outlined),
+                  label: 'Settings',
                 ),
               ],
             ),
-            body: cubit.bottomNavScreens[cubit.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (int index){
-              cubit.changeBottomNavIndex(index);
-            },
-            currentIndex: cubit.currentIndex,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.apps_outlined),
-                label: 'Categories',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_outlined),
-                label: 'Favorites',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings_outlined),
-                label: 'Settings',
-              ),
-            ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
